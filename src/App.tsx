@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import ProfilePage from "./components/ProfilePage";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen animated-bg relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="particles"></div>
+      <div className="line"></div>
+
+      {/* Layout */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+        {/* Header */}
+        <Header />
+
+        {/* Main Content */}
+        <main className="flex-grow">
+          <ProfilePage />
+        </main>
+
+        {/* Footer */}
+        <Footer />
+      </div>
     </div>
   );
 }
-
-export default App;
