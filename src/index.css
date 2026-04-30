@@ -8,87 +8,46 @@ body {
   padding: 0;
 }
 
-/* 🔥 ANIMATED GRADIENT BACKGROUND */
-.animated-bg {
-  background: linear-gradient(
-    -45deg,
-    #0f172a,
-    #1e293b,
-    #312e81,
-    #7c3aed,
-    #db2777
-  );
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
-}
+/* ========================= */
+/* 🎯 GLASS CARD SYSTEM */
+/* ========================= */
 
-/* ✨ GRADIENT ANIMATION */
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
+@layer components {
+  .card {
+    @apply bg-white/10 backdrop-blur-lg border border-white/10 rounded-2xl shadow-xl p-6;
+    transition: all 0.3s ease;
   }
-  50% {
-    background-position: 100% 50%;
+
+  .card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   }
-  100% {
-    background-position: 0% 50%;
+
+  .card-title {
+    @apply text-lg font-semibold mb-4 text-white tracking-wide;
   }
-}
 
-/* ✨ PREMIUM PARTICLES */
-.particles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,0.6) 2px, transparent 2px),
-    radial-gradient(circle, rgba(255,255,255,0.4) 3px, transparent 3px);
-
-  background-size: 80px 80px, 120px 120px;
-
-  opacity: 0.15;
-
-  animation: floatParticles 90s linear infinite;
-}
-
-@keyframes floatParticles {
-  from {
-    transform: translateY(0);
+  .field {
+    @apply flex justify-between text-sm py-1;
   }
-  to {
-    transform: translateY(-300px);
+
+  .field-label {
+    @apply text-gray-400;
   }
-}
 
-/* 🌠 PREMIUM MOVING STREAK */
-.line {
-  position: absolute;
-  width: 250px;
-  height: 2px;
-
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(56, 189, 248, 0.8),
-    rgba(168, 85, 247, 0.8),
-    transparent
-  );
-
-  top: 25%;
-  left: -250px;
-
-  opacity: 0.5;
-  filter: blur(1px);
-
-  animation: moveLine 14s linear infinite;
-}
-
-@keyframes moveLine {
-  0% {
-    left: -250px;
+  .field-value {
+    @apply font-medium text-white;
   }
-  100% {
-    left: 120%;
+
+  .boolean-yes {
+    @apply text-green-400 font-semibold;
+  }
+
+  .boolean-no {
+    @apply text-red-400 font-semibold;
+  }
+
+  .link {
+    @apply text-blue-400 hover:text-blue-300 transition underline-offset-4 hover:underline;
   }
 }

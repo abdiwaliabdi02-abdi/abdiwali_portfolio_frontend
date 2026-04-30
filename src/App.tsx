@@ -4,7 +4,7 @@ import ProfilePage from "./components/ProfilePage";
 
 export default function App() {
   return (
-    <div className="min-h-screen animated-bg relative overflow-hidden">
+    <div className="min-h-screen animated-bg relative overflow-hidden text-white">
       {/* Background Effects */}
       <div className="particles"></div>
       <div className="line"></div>
@@ -15,8 +15,10 @@ export default function App() {
         <Header />
 
         {/* Main Content */}
-        <main className="flex-grow">
-          <ProfilePage />
+        <main className="flex-grow px-4 md:px-8 py-6">
+          <div className="max-w-7xl mx-auto">
+            <ProfilePage />
+          </div>
         </main>
 
         {/* Footer */}

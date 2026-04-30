@@ -56,90 +56,90 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      <div className="max-w-5xl mx-auto bg-gray-800 rounded-2xl shadow-xl p-8">
-        {/* Name */}
-        <h1 className="text-4xl font-bold mb-2">{profile.name}</h1>
-
-        {/* Bio */}
-        <p className="text-gray-400 mb-6">
-          {profile.bio || "No bio available"}
-        </p>
-
-        {/* Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field label="Location" value={profile.location} />
-          <Field label="Nationality" value={profile.nationality} />
-          <Field label="Availability" value={profile.availability} />
-          <Field label="Date of Birth" value={profile.dateOfBirth} />
-          <Field label="Email" value={profile.email} />
-          <Field label="Phone" value={profile.phone} />
-          <Field label="Address" value={profile.address} />
-          <Field
-            label="Expected Salary"
-            value={
-              profile.expectedSalary ? `$${profile.expectedSalary}` : undefined
-            }
-          />
-          <Field label="Notice Period" value={profile.noticePeriod} />
-          <Field label="Immigration Status" value={profile.immigrationStatus} />
-          <Field label="Languages" value={profile.languages} />
-          <Field label="Skills" value={profile.skills} />
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl p-6 shadow-lg">
+          <h1 className="text-3xl font-bold">{profile.name}</h1>
+          <p className="text-gray-200 mt-2">
+            {profile.bio || "No bio available"}
+          </p>
         </div>
 
-        {/* Boolean Fields */}
-        <div className="mt-6 space-y-2">
-          <BooleanField label="Own a Car" value={profile.ownACar} />
-          <BooleanField
-            label="Driving License"
-            value={profile.haveDrivingLicense}
-          />
-          <BooleanField
-            label="Willing to Relocate"
-            value={profile.willingToRelocate}
-          />
-        </div>
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Personal Info */}
+          <Card title="Personal Information">
+            <Field label="Location" value={profile.location} />
+            <Field label="Nationality" value={profile.nationality} />
+            <Field
+              label="Date of Birth"
+              value={formatDate(profile.dateOfBirth)}
+            />
+            <Field label="Email" value={profile.email} />
+            <Field label="Phone" value={profile.phone} />
+            <Field label="Address" value={profile.address} />
+          </Card>
 
-        {/* Social Links */}
-        <div className="mt-6 flex gap-6">
-          {profile.github && (
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-400 hover:underline"
-            >
-              GitHub
-            </a>
-          )}
+          {/* Social Links */}
+          <Card title="Social Links">
+            <LinkField label="GitHub" url={profile.github} />
+            <LinkField label="Twitter" url={profile.twitter} />
+            <LinkField label="LinkedIn" url={profile.linkedin} />
+          </Card>
 
-          {profile.twitter && (
-            <a
-              href={profile.twitter}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-400 hover:underline"
-            >
-              Twitter
-            </a>
-          )}
+          {/* Employment */}
+          <Card title="Employment Details">
+            <Field label="Availability" value={profile.availability} />
+            <Field
+              label="Expected Salary"
+              value={
+                profile.expectedSalary ? `$${profile.expectedSalary}` : "-"
+              }
+            />
+            <Field label="Notice Period" value={profile.noticePeriod} />
+            <Field
+              label="Immigration Status"
+              value={profile.immigrationStatus}
+            />
+            <Field label="Referees" value={profile.referees} />
+            <BooleanField
+              label="Willing to Relocate"
+              value={profile.willingToRelocate}
+            />
+          </Card>
 
-          {profile.linkedin && (
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-400 hover:underline"
-            >
-              LinkedIn
-            </a>
-          )}
+          {/* Skills */}
+          <Card title="Skills & Languages">
+            <Field label="Languages" value={profile.languages} />
+            <Field label="Skills" value={profile.skills} />
+          </Card>
+
+          {/* Extra */}
+          <Card title="Other Details">
+            <BooleanField label="Own a Car" value={profile.ownACar} />
+            <BooleanField
+              label="Driving License"
+              value={profile.haveDrivingLicense}
+            />
+          </Card>
         </div>
       </div>
     </div>
   );
 }
 
-/* ---------- Reusable Components ---------- */
+/* ---------- Components ---------- */
+
+function Card({ title, children }: any) {
+  return (
+    <div className="bg-gray-800 rounded-xl p-5 shadow-md hover:shadow-lg transition">
+      <h2 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">
+        {title}
+      </h2>
+      <div className="space-y-2">{children}</div>
+    </div>
+  );
+}
 
 function Field({ label, value }: { label: string; value?: string | number }) {
   return (
@@ -159,4 +159,29 @@ function BooleanField({ label, value }: { label: string; value?: boolean }) {
       </span>
     </div>
   );
+}
+
+function LinkField({ label, url }: { label: string; url?: string }) {
+  if (!url) return <Field label={label} value="-" />;
+
+  return (
+    <div>
+      <p className="text-gray-400 text-sm">{label}</p>
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        className="text-blue-400 hover:underline"
+      >
+        {label}
+      </a>
+    </div>
+  );
+}
+
+/* ---------- Helpers ---------- */
+
+function formatDate(date?: string) {
+  if (!date) return "-";
+  return new Date(date).toLocaleDateString();
 }
