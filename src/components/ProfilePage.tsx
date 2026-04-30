@@ -38,7 +38,7 @@ export default function ProfilePage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-900 text-white">
+      <div className="flex items-center justify-center h-screen text-white">
         Loading profile...
       </div>
     );
@@ -55,45 +55,48 @@ export default function ProfilePage() {
   if (!profile) return null;
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="min-h-screen text-white p-6">
+      {/* 🔥 FIXED: removed background wrapper */}
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl p-6 shadow-lg">
-          <h1 className="text-3xl font-bold">{profile.name}</h1>
-          <p className="text-gray-200 mt-2">
-            {profile.bio || "No bio available"}
-          </p>
+        <div>
+          <h1 className="text-4xl font-bold">{profile.name}</h1>
+          <p className="text-gray-400">{profile.bio}</p>
         </div>
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Personal Info */}
-          <Card title="Personal Information">
+          <div className="card">
+            <h2 className="card-title">Personal Information</h2>
             <Field label="Location" value={profile.location} />
             <Field label="Nationality" value={profile.nationality} />
-            <Field
-              label="Date of Birth"
-              value={formatDate(profile.dateOfBirth)}
-            />
+            <Field label="Date of Birth" value={profile.dateOfBirth} />
             <Field label="Email" value={profile.email} />
             <Field label="Phone" value={profile.phone} />
             <Field label="Address" value={profile.address} />
-          </Card>
+          </div>
 
-          {/* Social Links */}
-          <Card title="Social Links">
-            <LinkField label="GitHub" url={profile.github} />
-            <LinkField label="Twitter" url={profile.twitter} />
-            <LinkField label="LinkedIn" url={profile.linkedin} />
-          </Card>
+          {/* Social */}
+          <div className="card">
+            <h2 className="card-title">Social Links</h2>
+
+            <LinkField label="GitHub" value={profile.github} />
+            <LinkField label="Twitter" value={profile.twitter} />
+            <LinkField label="LinkedIn" value={profile.linkedin} />
+          </div>
 
           {/* Employment */}
-          <Card title="Employment Details">
+          <div className="card">
+            <h2 className="card-title">Employment Details</h2>
+
             <Field label="Availability" value={profile.availability} />
             <Field
               label="Expected Salary"
               value={
-                profile.expectedSalary ? `$${profile.expectedSalary}` : "-"
+                profile.expectedSalary
+                  ? `$${profile.expectedSalary}`
+                  : undefined
               }
             />
             <Field label="Notice Period" value={profile.noticePeriod} />
@@ -106,82 +109,63 @@ export default function ProfilePage() {
               label="Willing to Relocate"
               value={profile.willingToRelocate}
             />
-          </Card>
+          </div>
 
           {/* Skills */}
-          <Card title="Skills & Languages">
+          <div className="card">
+            <h2 className="card-title">Skills & Languages</h2>
             <Field label="Languages" value={profile.languages} />
             <Field label="Skills" value={profile.skills} />
-          </Card>
+          </div>
 
-          {/* Extra */}
-          <Card title="Other Details">
+          {/* Other */}
+          <div className="card">
+            <h2 className="card-title">Other Details</h2>
             <BooleanField label="Own a Car" value={profile.ownACar} />
             <BooleanField
               label="Driving License"
               value={profile.haveDrivingLicense}
             />
-          </Card>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-/* ---------- Components ---------- */
-
-function Card({ title, children }: any) {
-  return (
-    <div className="bg-gray-800 rounded-xl p-5 shadow-md hover:shadow-lg transition">
-      <h2 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">
-        {title}
-      </h2>
-      <div className="space-y-2">{children}</div>
-    </div>
-  );
-}
+/* ---------- COMPONENTS ---------- */
 
 function Field({ label, value }: { label: string; value?: string | number }) {
   return (
-    <div>
-      <p className="text-gray-400 text-sm">{label}</p>
-      <p className="font-medium">{value ?? "-"}</p>
+    <div className="field">
+      <span className="field-label">{label}</span>
+      <span className="field-value">{value ?? "-"}</span>
     </div>
   );
 }
 
 function BooleanField({ label, value }: { label: string; value?: boolean }) {
   return (
-    <div className="flex justify-between">
-      <span>{label}</span>
-      <span className={value ? "text-green-400" : "text-red-400"}>
+    <div className="field">
+      <span className="field-label">{label}</span>
+      <span className={value ? "boolean-yes" : "boolean-no"}>
         {value ? "Yes" : "No"}
       </span>
     </div>
   );
 }
 
-function LinkField({ label, url }: { label: string; url?: string }) {
-  if (!url) return <Field label={label} value="-" />;
-
+function LinkField({ label, value }: { label: string; value?: string }) {
   return (
-    <div>
-      <p className="text-gray-400 text-sm">{label}</p>
-      <a
-        href={url}
-        target="_blank"
-        rel="noreferrer"
-        className="text-blue-400 hover:underline"
-      >
-        {label}
-      </a>
+    <div className="field">
+      <span className="field-label">{label}</span>
+      {value ? (
+        <a href={value} target="_blank" rel="noreferrer" className="link">
+          {label}
+        </a>
+      ) : (
+        <span className="field-value">-</span>
+      )}
     </div>
   );
-}
-
-/* ---------- Helpers ---------- */
-
-function formatDate(date?: string) {
-  if (!date) return "-";
-  return new Date(date).toLocaleDateString();
 }
