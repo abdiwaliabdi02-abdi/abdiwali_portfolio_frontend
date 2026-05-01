@@ -1,5 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../api/profile.api";
+import {
+  FaUser,
+  FaLink,
+  FaBriefcase,
+  FaTools,
+  FaInfoCircle,
+} from "react-icons/fa";
 
 type Profile = {
   id: number;
@@ -31,101 +38,124 @@ export default function ProfilePage() {
     data: profile,
     isLoading,
     error,
-  } = useQuery({
+  } = useQuery<Profile>({
     queryKey: ["profile", 1],
     queryFn: () => getProfile(1),
   });
 
-  if (isLoading) {
+  if (isLoading)
     return (
       <div className="flex items-center justify-center h-screen text-white">
-        Loading profile...
+        Loading...
       </div>
     );
-  }
 
-  if (error) {
+  if (error)
     return (
       <div className="flex items-center justify-center h-screen text-red-500">
         Error loading profile
       </div>
     );
-  }
 
   if (!profile) return null;
 
   return (
-    <div className="min-h-screen text-white p-6">
-      {/* 🔥 FIXED: removed background wrapper */}
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
+    <div className="min-h-screen text-white px-6 py-10 animated-bg">
+      <div className="max-w-7xl mx-auto space-y-10">
+        {/* HEADER */}
         <div>
-          <h1 className="text-4xl font-bold">{profile.name}</h1>
-          <p className="text-gray-400">{profile.bio}</p>
+          <h1 className="text-5xl font-bold">{profile.name}</h1>
+          <p className="text-gray-400">
+            {profile.bio || "Full Stack Developer"}
+          </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Personal Info */}
-          <div className="card">
+        {/* GRID */}
+        <div className="cards-container">
+          {/* PERSONAL */}
+          <div className="card blue">
+            <div className="card-icon icon-blue">
+              <FaUser />
+            </div>
+
             <h2 className="card-title">Personal Information</h2>
+
             <Field label="Location" value={profile.location} />
             <Field label="Nationality" value={profile.nationality} />
-            <Field label="Date of Birth" value={profile.dateOfBirth} />
+            <Field label="DOB" value={formatDate(profile.dateOfBirth)} />
             <Field label="Email" value={profile.email} />
             <Field label="Phone" value={profile.phone} />
             <Field label="Address" value={profile.address} />
+
+            <div className="card-glow"></div>
           </div>
 
-          {/* Social */}
-          <div className="card">
+          {/* SOCIAL */}
+          <div className="card pink">
+            <div className="card-icon icon-pink">
+              <FaLink />
+            </div>
+
             <h2 className="card-title">Social Links</h2>
 
             <LinkField label="GitHub" value={profile.github} />
             <LinkField label="Twitter" value={profile.twitter} />
             <LinkField label="LinkedIn" value={profile.linkedin} />
+
+            <div className="card-glow"></div>
           </div>
 
-          {/* Employment */}
-          <div className="card">
-            <h2 className="card-title">Employment Details</h2>
+          {/* EMPLOYMENT */}
+          <div className="card green">
+            <div className="card-icon icon-green">
+              <FaBriefcase />
+            </div>
+
+            <h2 className="card-title">Employment</h2>
 
             <Field label="Availability" value={profile.availability} />
             <Field
-              label="Expected Salary"
+              label="Salary"
               value={
                 profile.expectedSalary
                   ? `$${profile.expectedSalary}`
                   : undefined
               }
             />
-            <Field label="Notice Period" value={profile.noticePeriod} />
-            <Field
-              label="Immigration Status"
-              value={profile.immigrationStatus}
-            />
-            <Field label="Referees" value={profile.referees} />
-            <BooleanField
-              label="Willing to Relocate"
-              value={profile.willingToRelocate}
-            />
+            <Field label="Notice" value={profile.noticePeriod} />
+            <Field label="Status" value={profile.immigrationStatus} />
+
+            <BooleanField label="Relocate" value={profile.willingToRelocate} />
+
+            <div className="card-glow"></div>
           </div>
 
-          {/* Skills */}
-          <div className="card">
-            <h2 className="card-title">Skills & Languages</h2>
+          {/* SKILLS */}
+          <div className="card blue">
+            <div className="card-icon icon-blue">
+              <FaTools />
+            </div>
+
+            <h2 className="card-title">Skills</h2>
+
             <Field label="Languages" value={profile.languages} />
             <Field label="Skills" value={profile.skills} />
+
+            <div className="card-glow"></div>
           </div>
 
-          {/* Other */}
-          <div className="card">
-            <h2 className="card-title">Other Details</h2>
-            <BooleanField label="Own a Car" value={profile.ownACar} />
-            <BooleanField
-              label="Driving License"
-              value={profile.haveDrivingLicense}
-            />
+          {/* OTHER */}
+          <div className="card pink">
+            <div className="card-icon icon-pink">
+              <FaInfoCircle />
+            </div>
+
+            <h2 className="card-title">Other</h2>
+
+            <BooleanField label="Own Car" value={profile.ownACar} />
+            <BooleanField label="License" value={profile.haveDrivingLicense} />
+
+            <div className="card-glow"></div>
           </div>
         </div>
       </div>
@@ -133,7 +163,12 @@ export default function ProfilePage() {
   );
 }
 
-/* ---------- COMPONENTS ---------- */
+/* ================= HELPERS ================= */
+
+function formatDate(date?: string) {
+  if (!date) return "-";
+  return new Date(date).toLocaleDateString();
+}
 
 function Field({ label, value }: { label: string; value?: string | number }) {
   return (
@@ -159,6 +194,7 @@ function LinkField({ label, value }: { label: string; value?: string }) {
   return (
     <div className="field">
       <span className="field-label">{label}</span>
+
       {value ? (
         <a href={value} target="_blank" rel="noreferrer" className="link">
           {label}
