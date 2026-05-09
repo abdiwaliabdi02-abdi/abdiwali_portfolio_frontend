@@ -40,7 +40,7 @@ export default function ProfilePage() {
     error,
   } = useQuery<Profile>({
     queryKey: ["profile", 1],
-    queryFn: () => getProfile(1),
+    queryFn: getProfile,
   });
 
   if (isLoading)

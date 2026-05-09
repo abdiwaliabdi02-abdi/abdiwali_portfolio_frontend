@@ -5,7 +5,7 @@ import { getProfile } from "../api/profile.api";
 export default function Footer() {
   const { data: profile } = useQuery({
     queryKey: ["profile", 1],
-    queryFn: () => getProfile(1),
+    queryFn: getProfile,
   });
 
   return (

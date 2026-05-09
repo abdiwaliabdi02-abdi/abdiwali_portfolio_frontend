@@ -2,6 +2,7 @@ import { useState } from "react";
 import profileImg from "../assets/profile.png";
 
 import { FaHome, FaFileAlt, FaCode, FaTrophy, FaHeart } from "react-icons/fa";
+
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../api/profile.api";
 
@@ -21,10 +22,34 @@ export default function Header() {
 
   const [active, setActive] = useState("Home");
 
-  const { data: profile } = useQuery({
-    queryKey: ["profile", 1],
-    queryFn: () => getProfile(1),
+  const {
+    data: profile,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
   });
+
+  /* Loading State */
+  if (isLoading) {
+    return (
+      <div className="w-full flex justify-center py-10">
+        <h1 className="text-green-400 text-xl animate-pulse">
+          Loading profile...
+        </h1>
+      </div>
+    );
+  }
+
+  /* Error State */
+  if (error) {
+    return (
+      <div className="w-full flex justify-center py-10">
+        <h1 className="text-red-400 text-xl">Something went wrong</h1>
+      </div>
+    );
+  }
 
   return (
     <header className="w-full flex justify-center py-4">
@@ -32,7 +57,6 @@ export default function Header() {
         className="
         relative w-[92%] max-w-6xl flex items-center justify-between px-4 py-3 rounded-2xl
 
-        /* 🌌 SAME SURFACE AS CARDS */
         bg-[rgba(2,6,23,0.88)] backdrop-blur-xl
         border border-white/10
 
@@ -40,7 +64,7 @@ export default function Header() {
         overflow-hidden
       "
       >
-        {/* 🔵 LEFT (MATCHES PERSONAL CARD) */}
+        {/* LEFT GLOW */}
         <div
           className="
           absolute left-0 top-0 h-full w-[180px] pointer-events-none
@@ -52,7 +76,7 @@ export default function Header() {
         "
         />
 
-        {/* 🌸 RIGHT (MATCHES SOCIAL CARD) */}
+        {/* RIGHT GLOW */}
         <div
           className="
           absolute right-0 top-0 h-full w-[180px] pointer-events-none
@@ -64,10 +88,10 @@ export default function Header() {
         "
         />
 
-        {/* ✨ TOP GLASS LINE */}
+        {/* TOP LINE */}
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-40" />
 
-        {/* LEFT */}
+        {/* PROFILE */}
         <div className="flex items-center gap-4 relative z-10">
           <div className="w-14 h-14 rounded-full p-[2px] bg-gradient-to-r from-blue-500 to-purple-500 shadow-md">
             <div className="w-full h-full rounded-full overflow-hidden bg-black">
@@ -81,15 +105,16 @@ export default function Header() {
 
           <div>
             <h1 className="text-white font-semibold text-lg">
-              {profile?.name || "Loading..."}
+              {profile?.name}
             </h1>
+
             <p className="text-gray-400 text-sm">
               {profile?.bio || "Software Developer"}
             </p>
           </div>
         </div>
 
-        {/* NAV */}
+        {/* NAVIGATION */}
         <nav className="flex items-center gap-3 text-sm md:text-base relative z-10">
           {navItems.map((item) => {
             const isActive = active === item.name;
@@ -100,21 +125,24 @@ export default function Header() {
                 href={`#${item.name.toLowerCase()}`}
                 onClick={() => setActive(item.name)}
                 className={`
-                  flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200
+                  flex items-center gap-2 px-4 py-2 rounded-full
+                  transition-all duration-300
 
                   ${
                     isActive
                       ? `
-                        bg-green-500/15 
-                        text-green-400 
-                        border border-green-400/40 
+                        bg-green-500/15
+                        text-green-400
+                        border border-green-400/40
                         shadow-[0_0_18px_rgba(34,197,94,0.7)]
+                        scale-105
                       `
                       : `
-                        text-gray-300 
-                        hover:text-green-400 
+                        text-gray-300
+                        hover:text-green-400
                         hover:bg-green-500/10
-                        hover:shadow-[0_0_10px_rgba(34,197,94,0.4)]
+                        hover:shadow-[0_0_12px_rgba(34,197,94,0.4)]
+                        hover:scale-105
                       `
                   }
                 `}
