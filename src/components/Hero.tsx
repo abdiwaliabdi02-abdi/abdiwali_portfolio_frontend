@@ -11,11 +11,9 @@ export default function Hero() {
         flex
         items-center
         justify-center
-
         px-6
         pt-24
         pb-16
-
         overflow-hidden
       "
     >
@@ -26,14 +24,10 @@ export default function Hero() {
           top-0
           left-1/2
           -translate-x-1/2
-
           w-[700px]
           h-[700px]
-
-          bg-green-400/10
-
-          blur-[180px]
-
+          bg-green-400/4
+          blur-[240px]
           rounded-full
         "
       />
@@ -43,14 +37,11 @@ export default function Hero() {
         className="
           relative
           z-10
-
           max-w-7xl
           w-full
-
           grid
           grid-cols-1
           lg:grid-cols-2
-
           gap-20
           items-center
         "
@@ -71,11 +62,8 @@ export default function Hero() {
             className="
               text-5xl
               md:text-7xl
-
               font-black
-
               text-white
-
               leading-tight
             "
           >
@@ -85,10 +73,8 @@ export default function Hero() {
           <h2
             className="
               mt-5
-
               text-2xl
               md:text-4xl
-
               font-bold
               leading-snug
             "
@@ -101,7 +87,6 @@ export default function Hero() {
                 from-green-400
                 via-cyan-400
                 to-green-300
-
                 bg-clip-text
                 text-transparent
               "
@@ -113,11 +98,8 @@ export default function Hero() {
           <p
             className="
               text-gray-400
-
               mt-8
-
               max-w-xl
-
               text-lg
               leading-relaxed
             "
@@ -134,36 +116,40 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer"
               className="
-                w-14
-                h-14
-
+                relative
+                w-16
+                h-16
                 rounded-2xl
-
                 flex
                 items-center
                 justify-center
-
-                text-2xl
-
-                bg-white/5
-
+                text-3xl
+                bg-[#0b1220]
                 border
                 border-white/10
-
-                backdrop-blur-xl
-
-                text-white
-
+                overflow-hidden
                 transition-all
                 duration-300
-
-                hover:scale-110
-                hover:text-green-400
-                hover:border-green-400/40
-                hover:shadow-[0_0_25px_rgba(34,197,94,0.35)]
+                hover:-translate-y-1
               "
             >
-              <FaGithub />
+              {/* GREEN LIGHT */}
+              <div
+                className="
+                  absolute
+                  bottom-0
+                  left-1/2
+                  -translate-x-1/2
+                  w-[80%]
+                  h-[3px]
+                  bg-green-400
+                  rounded-full
+                  blur-[2px]
+                  shadow-[0_0_20px_#22c55e]
+                "
+              />
+
+              <FaGithub className="text-white z-10" />
             </a>
 
             {/* LINKEDIN */}
@@ -172,36 +158,40 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer"
               className="
-                w-14
-                h-14
-
+                relative
+                w-16
+                h-16
                 rounded-2xl
-
                 flex
                 items-center
                 justify-center
-
-                text-2xl
-
-                bg-white/5
-
+                text-3xl
+                bg-[#0b1220]
                 border
                 border-white/10
-
-                backdrop-blur-xl
-
-                text-white
-
+                overflow-hidden
                 transition-all
                 duration-300
-
-                hover:scale-110
-                hover:text-green-400
-                hover:border-green-400/40
-                hover:shadow-[0_0_25px_rgba(34,197,94,0.35)]
+                hover:-translate-y-1
               "
             >
-              <FaLinkedin />
+              {/* GREEN LIGHT */}
+              <div
+                className="
+                  absolute
+                  bottom-0
+                  left-1/2
+                  -translate-x-1/2
+                  w-[80%]
+                  h-[3px]
+                  bg-green-400
+                  rounded-full
+                  blur-[2px]
+                  shadow-[0_0_20px_#22c55e]
+                "
+              />
+
+              <FaLinkedin className="text-white z-10" />
             </a>
 
             {/* TWITTER */}
@@ -210,36 +200,40 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer"
               className="
-                w-14
-                h-14
-
+                relative
+                w-16
+                h-16
                 rounded-2xl
-
                 flex
                 items-center
                 justify-center
-
-                text-2xl
-
-                bg-white/5
-
+                text-3xl
+                bg-[#0b1220]
                 border
                 border-white/10
-
-                backdrop-blur-xl
-
-                text-white
-
+                overflow-hidden
                 transition-all
                 duration-300
-
-                hover:scale-110
-                hover:text-green-400
-                hover:border-green-400/40
-                hover:shadow-[0_0_25px_rgba(34,197,94,0.35)]
+                hover:-translate-y-1
               "
             >
-              <FaTwitter />
+              {/* GREEN LIGHT */}
+              <div
+                className="
+                  absolute
+                  bottom-0
+                  left-1/2
+                  -translate-x-1/2
+                  w-[80%]
+                  h-[3px]
+                  bg-green-400
+                  rounded-full
+                  blur-[2px]
+                  shadow-[0_0_20px_#22c55e]
+                "
+              />
+
+              <FaTwitter className="text-white z-10" />
             </a>
           </div>
         </div>
@@ -252,21 +246,17 @@ export default function Hero() {
             justify-center
             items-center
             mt-10
-            lg:mt-0
+            lg:mt-10
           "
         >
           {/* GREEN GLOW */}
           <div
             className="
               absolute
-
               w-[380px]
               h-[380px]
-
-              bg-green-400/20
-
-              blur-[120px]
-
+              bg-green-400/8
+              blur-[160px]
               rounded-full
             "
           />
@@ -275,17 +265,13 @@ export default function Hero() {
           <div
             className="
               relative
-
               w-[300px]
               h-[360px]
-
               md:w-[380px]
               md:h-[440px]
-
               rounded-[35px]
               border
               border-green-400/30
-
               overflow-visible
             "
           >
@@ -294,17 +280,11 @@ export default function Hero() {
               className="
                 absolute
                 inset-0
-
                 rounded-[35px]
-
                 p-[3px]
-
                 bg-[linear-gradient(90deg,#22c55e,#4ade80,#22c55e,#86efac,#22c55e)]
-
                 bg-[length:300%_300%]
-
                 animate-[greenBorder_4s_linear_infinite]
-
                 shadow-[0_0_45px_rgba(34,197,94,0.45)]
               "
             >
@@ -312,14 +292,10 @@ export default function Hero() {
               <div
                 className="
                   relative
-
                   w-full
                   h-full
-
                   rounded-[32px]
-
                   overflow-hidden
-
                   bg-transparent
                   backdrop-blur-sm
                 "
@@ -329,11 +305,9 @@ export default function Hero() {
                   className="
                     absolute
                     inset-0
-
                     bg-gradient-to-b
                     from-green-400/10
                     to-transparent
-
                     z-10
                   "
                 />
@@ -342,16 +316,12 @@ export default function Hero() {
                 <div
                   className="
                     absolute
-
                     bottom-0
                     left-1/2
                     -translate-x-1/2
-
                     w-[110%]
                     h-[115%]
-
                     z-20
-
                     flex
                     items-end
                     justify-center
@@ -362,12 +332,9 @@ export default function Hero() {
                     alt="profile"
                     className="
                       h-full
-
                       object-cover
                       object-top
-
                       mix-blend-lighten
-
                       drop-shadow-[0_0_30px_rgba(34,197,94,0.35)]
                     "
                   />
@@ -379,21 +346,14 @@ export default function Hero() {
             <div
               className="
                 absolute
-
                 top-[-35px]
                 left-1/2
-
                 -translate-x-1/2
-
                 w-[140px]
                 h-[140px]
-
                 rounded-full
-
-                bg-green-400/20
-
+                bg-green-400/10
                 blur-3xl
-
                 z-0
               "
             />

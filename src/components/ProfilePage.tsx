@@ -60,18 +60,25 @@ export default function ProfilePage() {
   if (!profile) return null;
 
   return (
-    <div className="min-h-screen text-white px-6 py-10 animated-bg">
-      <div className="max-w-7xl mx-auto space-y-10">
-        {/* HEADER */}
-        <div>
-          <h1 className="text-5xl font-bold">{profile.name}</h1>
-          <p className="text-gray-400">
-            {profile.bio || "Full Stack Developer"}
-          </p>
-        </div>
-
+    <section
+      className="
+        relative
+        px-6
+        py-16
+        overflow-hidden
+      "
+    >
+      <div className="max-w-7xl mx-auto">
         {/* GRID */}
-        <div className="cards-container">
+        <div
+          className="
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            xl:grid-cols-3
+            gap-8
+          "
+        >
           {/* PERSONAL */}
           <div className="card blue">
             <div className="card-icon icon-blue">
@@ -86,8 +93,6 @@ export default function ProfilePage() {
             <Field label="Email" value={profile.email} />
             <Field label="Phone" value={profile.phone} />
             <Field label="Address" value={profile.address} />
-
-            <div className="card-glow"></div>
           </div>
 
           {/* SOCIAL */}
@@ -101,8 +106,6 @@ export default function ProfilePage() {
             <LinkField label="GitHub" value={profile.github} />
             <LinkField label="Twitter" value={profile.twitter} />
             <LinkField label="LinkedIn" value={profile.linkedin} />
-
-            <div className="card-glow"></div>
           </div>
 
           {/* EMPLOYMENT */}
@@ -114,6 +117,7 @@ export default function ProfilePage() {
             <h2 className="card-title">Employment</h2>
 
             <Field label="Availability" value={profile.availability} />
+
             <Field
               label="Salary"
               value={
@@ -122,12 +126,12 @@ export default function ProfilePage() {
                   : undefined
               }
             />
+
             <Field label="Notice" value={profile.noticePeriod} />
+
             <Field label="Status" value={profile.immigrationStatus} />
 
             <BooleanField label="Relocate" value={profile.willingToRelocate} />
-
-            <div className="card-glow"></div>
           </div>
 
           {/* SKILLS */}
@@ -140,8 +144,6 @@ export default function ProfilePage() {
 
             <Field label="Languages" value={profile.languages} />
             <Field label="Skills" value={profile.skills} />
-
-            <div className="card-glow"></div>
           </div>
 
           {/* OTHER */}
@@ -153,13 +155,12 @@ export default function ProfilePage() {
             <h2 className="card-title">Other</h2>
 
             <BooleanField label="Own Car" value={profile.ownACar} />
-            <BooleanField label="License" value={profile.haveDrivingLicense} />
 
-            <div className="card-glow"></div>
+            <BooleanField label="License" value={profile.haveDrivingLicense} />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -172,18 +173,42 @@ function formatDate(date?: string) {
 
 function Field({ label, value }: { label: string; value?: string | number }) {
   return (
-    <div className="field">
-      <span className="field-label">{label}</span>
-      <span className="field-value">{value ?? "-"}</span>
+    <div
+      className="
+        flex
+        justify-between
+        items-center
+        py-2
+        border-b
+        border-white/5
+      "
+    >
+      <span className="text-gray-400">{label}</span>
+
+      <span className="text-white font-medium">{value ?? "-"}</span>
     </div>
   );
 }
 
 function BooleanField({ label, value }: { label: string; value?: boolean }) {
   return (
-    <div className="field">
-      <span className="field-label">{label}</span>
-      <span className={value ? "boolean-yes" : "boolean-no"}>
+    <div
+      className="
+        flex
+        justify-between
+        items-center
+        py-2
+        border-b
+        border-white/5
+      "
+    >
+      <span className="text-gray-400">{label}</span>
+
+      <span
+        className={
+          value ? "text-green-400 font-semibold" : "text-red-400 font-semibold"
+        }
+      >
         {value ? "Yes" : "No"}
       </span>
     </div>
@@ -192,15 +217,33 @@ function BooleanField({ label, value }: { label: string; value?: boolean }) {
 
 function LinkField({ label, value }: { label: string; value?: string }) {
   return (
-    <div className="field">
-      <span className="field-label">{label}</span>
+    <div
+      className="
+        flex
+        justify-between
+        items-center
+        py-2
+        border-b
+        border-white/5
+      "
+    >
+      <span className="text-gray-400">{label}</span>
 
       {value ? (
-        <a href={value} target="_blank" rel="noreferrer" className="link">
+        <a
+          href={value}
+          target="_blank"
+          rel="noreferrer"
+          className="
+            text-cyan-400
+            hover:text-cyan-300
+            transition
+          "
+        >
           {label}
         </a>
       ) : (
-        <span className="field-value">-</span>
+        <span className="text-white">-</span>
       )}
     </div>
   );
