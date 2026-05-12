@@ -3,26 +3,34 @@ export default function Skills() {
     {
       title: "Frontend",
       icon: "🎨",
-      glow: "from-pink-500/20 to-purple-500/20",
-      border: "hover:border-pink-400/40",
-      shadow: "hover:shadow-[0_0_40px_rgba(236,72,153,0.25)]",
-      items: ["React", "TypeScript", "Tailwind", "Next.js"],
+      glow: "from-pink-500/30 via-purple-500/20 to-cyan-500/20",
+      border: "hover:border-pink-400/50",
+      shadow: "hover:shadow-[0_0_60px_rgba(236,72,153,0.45)]",
+      items: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "TypeScript",
+        "Tailwind",
+        "Next.js",
+      ],
     },
     {
       title: "Backend",
       icon: "⚙️",
-      glow: "from-cyan-500/20 to-blue-500/20",
-      border: "hover:border-cyan-400/40",
-      shadow: "hover:shadow-[0_0_40px_rgba(34,211,238,0.25)]",
-      items: ["Node.js", "PHP", "Laravel", "REST APIs"],
+      glow: "from-cyan-500/30 via-blue-500/20 to-indigo-500/20",
+      border: "hover:border-cyan-400/50",
+      shadow: "hover:shadow-[0_0_60px_rgba(34,211,238,0.45)]",
+      items: ["Node.js", "Express", "MySQL"],
     },
     {
       title: "Tools",
       icon: "🛠️",
-      glow: "from-green-500/20 to-emerald-500/20",
-      border: "hover:border-green-400/40",
-      shadow: "hover:shadow-[0_0_40px_rgba(34,197,94,0.25)]",
-      items: ["Git", "Docker", "Linux", "VS Code"],
+      glow: "from-green-500/30 via-emerald-500/20 to-yellow-500/20",
+      border: "hover:border-green-400/50",
+      shadow: "hover:shadow-[0_0_60px_rgba(34,197,94,0.45)]",
+      items: ["Git", "Docker", "Linux", "VS Code", "GitHub"],
     },
   ];
 
@@ -42,9 +50,9 @@ export default function Skills() {
       <div className="text-center mb-16">
         <h2
           className="
-            text-4xl
-            md:text-5xl
-            font-bold
+            text-5xl
+            md:text-6xl
+            font-black
 
             bg-gradient-to-r
             from-cyan-400
@@ -61,14 +69,15 @@ export default function Skills() {
         <p
           className="
             text-gray-400
-            mt-5
-            text-base
-            md:text-lg
-            max-w-2xl
+            mt-6
+            text-lg
+            md:text-xl
+            max-w-3xl
             mx-auto
+            leading-relaxed
           "
         >
-          Technologies and tools I use to build modern, scalable and
+          Technologies and tools I use to build futuristic, scalable and
           high-performance web applications.
         </p>
       </div>
@@ -91,83 +100,90 @@ export default function Skills() {
               relative
               overflow-hidden
 
-              rounded-3xl
+              rounded-[30px]
 
               border
               border-white/10
 
-              bg-[rgba(15,23,42,0.7)]
+              bg-[rgba(15,23,42,0.72)]
 
-              backdrop-blur-xl
+              backdrop-blur-2xl
 
-              p-8
+              p-7
 
               transition-all
               duration-500
 
-              hover:-translate-y-3
+              hover:-translate-y-2
 
               ${skill.border}
               ${skill.shadow}
             `}
           >
-            {/* TOP LIGHT */}
-            <div
-              className="
-                absolute
-                top-0
-                left-0
-
-                w-full
-                h-[1px]
-
-                bg-gradient-to-r
-                from-transparent
-                via-white/50
-                to-transparent
-
-                opacity-40
-              "
-            />
-
-            {/* GLOW */}
+            {/* PREMIUM GLOW */}
             <div
               className={`
                 absolute
-                -top-16
-                -left-16
+                -top-24
+                -left-24
 
-                w-40
-                h-40
+                w-56
+                h-56
 
                 rounded-full
 
-                blur-3xl
+                blur-[90px]
 
                 bg-gradient-to-br
                 ${skill.glow}
 
-                opacity-80
+                opacity-90
 
                 transition-all
-                duration-500
+                duration-700
+
+                group-hover:scale-110
               `}
+            />
+
+            {/* ANIMATED LIGHT LINE */}
+            <div
+              className="
+                absolute
+                top-0
+                left-[-100%]
+
+                w-full
+                h-[2px]
+
+                bg-gradient-to-r
+                from-transparent
+                via-white
+                to-transparent
+
+                opacity-70
+
+                group-hover:left-[100%]
+
+                transition-all
+                duration-1000
+              "
             />
 
             {/* CONTENT */}
             <div className="relative z-10">
               {/* HEADER */}
-              <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center gap-5 mb-8">
                 <div
                   className="
-                    w-16
-                    h-16
+                    w-18
+                    h-18
 
                     flex
                     items-center
                     justify-center
 
-                    rounded-2xl
+                    rounded-3xl
 
                     bg-white/5
 
@@ -176,7 +192,11 @@ export default function Skills() {
                     border
                     border-white/10
 
-                    shadow-inner
+                    shadow-[inset_0_0_25px_rgba(255,255,255,0.05)]
+
+                    group-hover:rotate-3
+                    transition-all
+                    duration-500
                   "
                 >
                   {skill.icon}
@@ -185,7 +205,7 @@ export default function Skills() {
                 <h3
                   className="
                     text-2xl
-                    font-bold
+                    font-black
                     tracking-wide
                   "
                 >
@@ -205,7 +225,7 @@ export default function Skills() {
                       rounded-full
 
                       text-sm
-                      font-medium
+                      font-semibold
 
                       bg-white/5
 
@@ -219,9 +239,15 @@ export default function Skills() {
                       transition-all
                       duration-300
 
-                      hover:bg-white
+                      hover:bg-gradient-to-r
+                      hover:from-green-400
+                      hover:to-cyan-400
+
                       hover:text-black
+
                       hover:scale-105
+
+                      hover:shadow-[0_0_20px_rgba(34,197,94,0.35)]
                     "
                   >
                     {item}
